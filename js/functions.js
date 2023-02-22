@@ -21,7 +21,7 @@ const extractNumber = (string) => {
   }
   let result = '';
   for (let i = 0; i < string.length; i++) {
-    if (!Number.isNan(parseInt(string.at(i), 10))) {
+    if (!Number.isNaN(parseInt(string.at(i), 10))) {
       result += string.at(i);
     }
   }
@@ -31,32 +31,11 @@ extractNumber();
 
 // Функция, которая принимает три параметра: исходную строку, минимальную длину и строку с добавочными символами — и возвращает исходную строку, дополненную указанными символами до заданной длины. Символы добавляются в начало строки. Если исходная строка превышает заданную длину, она не должна обрезаться. Если «добивка» слишком длинная, она обрезается с конца.
 
-// const myPadStart = (string, minLenght, pad) => {
-//   const actualPad = minLenght - string.length;
-//   if (actualPad <= 0) {
-//     return string;
-//   }
-//   return pad.slice(0, actualPad % pad.length) + pad.repeat(actualPad / pad.length) + string;
-// };
-// myPadStart();
-
 const myPadStart = (string, minLenght, pad) => {
-  const howManyNeed = minLenght - string.length;
-  let resultString;
-  if (howManyNeed <= 0) {
+  const actualPad = minLenght - string.length;
+  if (actualPad <= 0) {
     return string;
   }
-
-  if(pad.length > howManyNeed) {
-    return pad.slice(0, howManyNeed) + string;
-  } else {
-    resultString = (pad.repeat(howManyNeed / pad.length)) + string;
-    if(resultString.length === minLenght) {
-      return resultString;
-    }
-    resultString = pad.slice(0,resultString.length - pad.length) + resultString;
-
-    return resultString;
-  }
+  return pad.slice(0, actualPad % pad.length) + pad.repeat(actualPad / pad.length) + string;
 };
 myPadStart();
