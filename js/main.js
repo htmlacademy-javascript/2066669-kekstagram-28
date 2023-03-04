@@ -102,12 +102,21 @@ const createComments = () => ({
   name: getRandomArrayElement(NAMES),
 });
 
+const generateComments = (amount) => {
+  const resultComments = [];
+
+  for (let i = 0; i < amount; i++) {
+    resultComments.push(createComments());
+  }
+  return resultComments;
+};
+
 const createPicture = (a) => ({
   id: a,
   url: `photos/${a}.jpg`,
   description: getRandomArrayElement(DESCRIPTIONS),
   likes: getRandomInteger(LIKE_MIN, LIKE_MAX),
-  comments: createComments(getRandomInteger()),
+  comments: generateComments(getRandomInteger(1, 10)),
 });
 
 const createPictures = () => {
