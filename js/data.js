@@ -115,4 +115,4 @@ const createPictures = () => {
   return resultPictures;
 };
 
-export {createPictures};
+export {createPictures, generateComments};
