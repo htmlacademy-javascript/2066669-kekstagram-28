@@ -1,6 +1,6 @@
 import {isEscapeKey} from './util.js';
-const createComment = (commentData) => {
-  const commentTemplate = document.querySelector('.social__comment').cloneNode(true);
+const createComment = (commentData, element) => {
+  const commentTemplate = element.cloneNode(true);
 
   commentTemplate.querySelector('.social__picture').src = commentData.avatar;
   commentTemplate.querySelector('.social__text').textContent = commentData.message;
@@ -9,11 +9,11 @@ const createComment = (commentData) => {
   return commentTemplate;
 };
 
-const renderComments = (comments) => {
-  const pageComments = document.querySelector('.social__comments').cloneNode(true);
+const renderComments = (comments, element) => {
+  const pageComments = element.cloneNode(true);
   pageComments.innerHTML = '';
   comments.forEach((comment) => {
-    pageComments.appendChild(createComment(comment));
+    pageComments.appendChild(createComment(comment, document.querySelector('.social__comment')));
   });
 
   document.querySelector('.social__comments').innerHTML = pageComments.innerHTML;
@@ -25,6 +25,7 @@ function openUserModal (modalElement) {
 
   document.addEventListener('keydown', (evt) => {
     if (isEscapeKey(evt)) {
+      evt.preventDefault();
       closeUserModal(modalElement);
     }
   });
@@ -36,6 +37,7 @@ function closeUserModal (modalElement) {
 
   document.removeEventListener('keydown', (evt) => {
     if (isEscapeKey(evt)) {
+      evt.preventDefault();
       modalElement.classList.add('hidden');
     }
   });
@@ -62,7 +64,7 @@ function setOpenSubscribers (picturesAll, bigPicture) {
       bigPicture.querySelector('.big-picture__img img').src = evt.target.src;
       bigPicture.querySelector('.likes-count').textContent = found.likes;
       bigPicture.querySelector('.social__caption').textContent = found.description;
-      renderComments(found.comments);
+      renderComments(found.comments, document.querySelector('.social__comments'));
       openUserModal(bigPicture);
     });
   });
