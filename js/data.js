@@ -103,7 +103,7 @@ const createPicture = (a) => ({
   url: `photos/${a}.jpg`,
   description: getRandomArrayElement(DESCRIPTIONS),
   likes: getRandomInteger(LIKE_MIN, LIKE_MAX),
-  comments: generateComments(getRandomInteger(1, 10)),
+  comments: generateComments(getRandomInteger(1, 20)),
 });
 
 const createPictures = () => {
