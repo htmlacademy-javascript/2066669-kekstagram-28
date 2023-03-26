@@ -44,8 +44,12 @@ function nextFive() {
         comment.classList.remove('hidden');
       }
     }
-  } catch (e) { /* empty */ }
+  } catch (e) {
+    document.querySelector('.social__comment-count').innerHTML = counterLine(document.querySelector('.social__comments').children);
+    return;
+  }
   document.querySelector('.social__comment-count').innerHTML = counterLine(document.querySelector('.social__comments').children);
+  document.querySelector('.social__comments-loader').classList.add('hidden');
 }
 
 const renderComments = (comments, element) => {
@@ -85,6 +89,7 @@ function closeUserModal (modalElement) {
 
 function registerCloseSubscriber (bigPicture) {
   document.querySelector('.big-picture__cancel').addEventListener('click', () => {
+    document.querySelector('.social__comments-loader').classList.remove('hidden');
     closeUserModal(bigPicture);
   });
 }
