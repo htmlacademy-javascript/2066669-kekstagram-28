@@ -1,6 +1,8 @@
 import {isEscapeKey} from './util.js';
 
 const BreakException = {};
+const socialComments = document.querySelector('.social__comments');
+const bigPicture = document.querySelector('.big-picture');
 
 const createComment = (commentData, element, hidden = false) => {
   const commentTemplate = element.cloneNode(true);
@@ -32,7 +34,7 @@ function counterLine(comments) {
 
 function nextFive() {
 
-  const comments = [].slice.call(document.querySelector('.social__comments').children);
+  const comments = [].slice.call(socialComments.children);
   let cnt = 0;
   try {
     for (const comment of comments) {
@@ -45,11 +47,13 @@ function nextFive() {
       }
     }
   } catch (e) {
-    document.querySelector('.social__comment-count').innerHTML = counterLine(document.querySelector('.social__comments').children);
-    return;
+    if (e === BreakException) {
+      return;
+    }
+  } finally {
+    bigPicture.querySelector('.social__comment-count').innerHTML = counterLine(socialComments.children);
   }
-  document.querySelector('.social__comment-count').innerHTML = counterLine(document.querySelector('.social__comments').children);
-  document.querySelector('.social__comments-loader').classList.add('hidden');
+  bigPicture.querySelector('.social__comments-loader').classList.add('hidden');
 }
 
 const renderComments = (comments, element) => {
@@ -57,10 +61,10 @@ const renderComments = (comments, element) => {
   pageComments.innerHTML = '';
 
   for (let n = 0; n < comments.length; n++) {
-    pageComments.appendChild(createComment(comments[n], document.querySelector('.social__comment'), n > 4));
+    pageComments.appendChild(createComment(comments[n], bigPicture.querySelector('.social__comment'), n > 4));
   }
 
-  document.querySelector('.social__comments').innerHTML = pageComments.innerHTML;
+  socialComments.innerHTML = pageComments.innerHTML;
 };
 
 function openUserModal (modalElement) {
@@ -78,6 +82,7 @@ function openUserModal (modalElement) {
 function closeUserModal (modalElement) {
   modalElement.classList.add('hidden');
   document.querySelector('body').classList.remove('modal-open');
+  bigPicture.querySelector('.social__comments-loader').classList.remove('hidden');
 
   document.removeEventListener('keydown', (evt) => {
     if (isEscapeKey(evt)) {
@@ -87,14 +92,13 @@ function closeUserModal (modalElement) {
   });
 }
 
-function registerCloseSubscriber (bigPicture) {
-  document.querySelector('.big-picture__cancel').addEventListener('click', () => {
-    document.querySelector('.social__comments-loader').classList.remove('hidden');
+function registerCloseSubscriber () {
+  bigPicture.querySelector('.big-picture__cancel').addEventListener('click', () => {
     closeUserModal(bigPicture);
   });
 }
 
-function setOpenSubscribers (picturesAll, bigPicture) {
+function setOpenSubscribers (picturesAll) {
   const openPictures = document.querySelectorAll('.picture');
 
   openPictures.forEach((pictureElement) => {
@@ -109,18 +113,20 @@ function setOpenSubscribers (picturesAll, bigPicture) {
       bigPicture.querySelector('.big-picture__img img').src = evt.target.src;
       bigPicture.querySelector('.likes-count').textContent = found.likes;
       bigPicture.querySelector('.social__caption').textContent = found.description;
-      document.querySelector('.social__comments-loader').addEventListener('click', nextFive, false);
-      renderComments(found.comments, document.querySelector('.social__comments'));
-      document.querySelector('.social__comment-count').innerHTML = counterLine(document.querySelector('.social__comments').children);
+      bigPicture.querySelector('.social__comments-loader').addEventListener('click', nextFive, false);
+      renderComments(found.comments, bigPicture.querySelector('.social__comments'));
+      bigPicture.querySelector('.social__comment-count').innerHTML = counterLine(bigPicture.querySelector('.social__comments').children);
+      if (countVisible(bigPicture.querySelector('.social__comments').children) === found.comments.length) {
+        bigPicture.querySelector('.social__comments-loader').classList.add('hidden');
+      }
       openUserModal(bigPicture);
     });
   });
 }
 
 const setSubscribers = (picturesAll) => {
-  const bigPicture = document.querySelector('.big-picture');
-  registerCloseSubscriber(bigPicture);
-  setOpenSubscribers(picturesAll, bigPicture);
+  registerCloseSubscriber();
+  setOpenSubscribers(picturesAll);
 };
 
 export {setSubscribers};
