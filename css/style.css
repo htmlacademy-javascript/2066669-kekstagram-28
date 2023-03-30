@@ -286,7 +286,7 @@ main {
   margin: 0 auto;
   padding-bottom: 60px;
   width: 582px;
-
+  position: relative;
   text-align: center;
 }
 
@@ -369,6 +369,14 @@ main {
 
 /* Окно для редактирования изображения
    ========================================================================== */
+.pristine-error {
+  display: table;
+  position: absolute;
+  top: 30%;
+  width: 520px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 
 .img-upload__overlay {
   position: fixed;
@@ -674,6 +682,7 @@ main {
  */
 
 .text {
+  position: relative;
   margin: 0;
   padding: 0;
   margin-bottom: 30px;
@@ -686,7 +695,7 @@ main {
   width: 450px;
 
   margin: 0 auto;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
   padding: 5px 10px;
 
   font-family: "Open Sans", "Arial", sans-serif;
