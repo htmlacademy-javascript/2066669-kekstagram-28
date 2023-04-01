@@ -1,17 +1,13 @@
-import {isEscapeKey} from './util.js';
+import {isEscapeKey, body} from './util.js';
+import {PATTERN_ERROR_TEXT, REPEAT_ERROR_TEXT, FIVE_ERROR_TEXT, COMMENTARY_ERROR_TEXT} from './data.js';
 
-const PATTERN_ERROR_TEXT = 'Хэштэг должен начинаться с # и состоять только из букв и чисел';
-const REPEAT_ERROR_TEXT = 'Хэштэги не должны повторяться';
-const FIVE_ERROR_TEXT = 'Не более 5 хэштэгов';
-const COMMENTARY_ERROR_TEXT = 'Комментарий не должен быть длинее 140 символов';
-
-const body = document.querySelector('body');
-const form = document.querySelector('.img-upload__form');
-const formOverlay = document.querySelector('.img-upload__overlay');
-const formInput = document.querySelector('.img-upload__input');
-const closeForm = document.querySelector('.img-upload__cancel');
-const hashtagField = document.querySelector('.text__hashtags');
-const textField = document.querySelector('.text__description');
+const sectionPictures = document.querySelector('.pictures');
+const form = sectionPictures.querySelector('.img-upload__form');
+const formOverlay = sectionPictures.querySelector('.img-upload__overlay');
+const formInput = sectionPictures.querySelector('.img-upload__input');
+const closeForm = sectionPictures.querySelector('.img-upload__cancel');
+const hashtagField = sectionPictures.querySelector('.text__hashtags');
+const textField = sectionPictures.querySelector('.text__description');
 
 const pristine = new Pristine(form, {
   classTo: 'img-upload__field-wrapper',
