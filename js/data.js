@@ -47,6 +47,10 @@ const NAMES = [
   'Семен',
   'Иван',
 ];
+const PATTERN_ERROR_TEXT = 'Хэштэг должен начинаться с # и состоять только из букв и чисел';
+const REPEAT_ERROR_TEXT = 'Хэштэги не должны повторяться';
+const FIVE_ERROR_TEXT = 'Не более 5 хэштэгов';
+const COMMENTARY_ERROR_TEXT = 'Комментарий не должен быть длинее 140 символов';
 
 //Получение случайного числа.
 
@@ -115,4 +119,4 @@ const createPictures = () => {
   return resultPictures;
 };
 
-export {createPictures, generateComments};
+export {createPictures, generateComments, PATTERN_ERROR_TEXT, REPEAT_ERROR_TEXT, FIVE_ERROR_TEXT, COMMENTARY_ERROR_TEXT};

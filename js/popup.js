@@ -1,8 +1,8 @@
-import {isEscapeKey} from './util.js';
+import {isEscapeKey, body} from './util.js';
 
 const BreakException = {};
-const socialComments = document.querySelector('.social__comments');
 const bigPicture = document.querySelector('.big-picture');
+const socialComments = bigPicture.querySelector('.social__comments');
 
 const createComment = (commentData, element, hidden = false) => {
   const commentTemplate = element.cloneNode(true);
@@ -69,7 +69,7 @@ const renderComments = (comments, element) => {
 
 function openUserModal (modalElement) {
   modalElement.classList.remove('hidden');
-  document.querySelector('body').classList.add('modal-open');
+  body.classList.add('modal-open');
 
   document.addEventListener('keydown', (evt) => {
     if (isEscapeKey(evt)) {
@@ -81,7 +81,7 @@ function openUserModal (modalElement) {
 
 function closeUserModal (modalElement) {
   modalElement.classList.add('hidden');
-  document.querySelector('body').classList.remove('modal-open');
+  body.classList.remove('modal-open');
   bigPicture.querySelector('.social__comments-loader').classList.remove('hidden');
 
   document.removeEventListener('keydown', (evt) => {
