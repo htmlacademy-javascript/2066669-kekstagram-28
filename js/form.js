@@ -110,4 +110,4 @@ form.addEventListener('submit', (evt) => {
   }
 });
 
-export {manageUploads};
+export {manageUploads, sectionPictures};

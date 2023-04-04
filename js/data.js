@@ -54,7 +54,7 @@ const COMMENTARY_ERROR_TEXT = 'Комментарий не должен быть
 const STEP = 25;
 const MIN_SCALE = 25;
 const MAX_SCALE = 100;
-const DEFAULT_SCALE = 55;
+const DEFAULT_SCALE = 100;
 
 //Получение случайного числа.
 
