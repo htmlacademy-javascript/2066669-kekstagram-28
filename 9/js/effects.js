@@ -51,21 +51,14 @@ const EFFECTS = [
 const DEFAULT = 0;
 let chosenEffect = EFFECTS[DEFAULT];
 
-const image = document.querySelector('.img-upload__preview img');
-const effects = document.querySelector('.effects');
-const slider = document.querySelector('.effect-level__slider');
-const sliderContainerElement = document.querySelector('.img-upload__effect-level');
-const effectLevelElement = document.querySelector('.effect-level__value');
+const sectionPictures = document.querySelector('.pictures');
+const image = sectionPictures.querySelector('.img-upload__preview img');
+const effects = sectionPictures.querySelector('.effects');
+const slider = sectionPictures.querySelector('.effect-level__slider');
+const sliderContainerElement = sectionPictures.querySelector('.img-upload__effect-level');
+const effectLevelElement = sectionPictures.querySelector('.effect-level__value');
 
 const isDefault = () => chosenEffect === EFFECTS[DEFAULT];
-
-function showSlider() {
-  sliderContainerElement.classList.remove('hidden');
-}
-
-function hideSlider() {
-  sliderContainerElement.classList.add('hidden');
-}
 
 function updateSlider() {
   slider.noUiSlider.updateOptions({
@@ -77,10 +70,10 @@ function updateSlider() {
     start:chosenEffect.max,
   });
 
+  sliderContainerElement.classList.remove('hidden');
+
   if (isDefault()) {
-    hideSlider();
-  } else {
-    showSlider();
+    sliderContainerElement.classList.add('hidden');
   }
 }
 
@@ -117,7 +110,7 @@ noUiSlider.create(slider, {
   step: EFFECTS[DEFAULT].step,
   connect: 'lower',
 });
-hideSlider();
+updateSlider();
 
 effects.addEventListener('change', onEffectsChange);
 slider.noUiSlider.on('update', onSliderUpdate);
