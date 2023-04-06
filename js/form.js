@@ -1,5 +1,8 @@
 import {isEscapeKey, body} from './util.js';
 import {PATTERN_ERROR_TEXT, REPEAT_ERROR_TEXT, FIVE_ERROR_TEXT, COMMENTARY_ERROR_TEXT} from './data.js';
+import {resetScale} from './scale.js';
+import {resetEffects} from './effects.js';
+
 
 const sectionPictures = document.querySelector('.pictures');
 const form = sectionPictures.querySelector('.img-upload__form');
@@ -25,6 +28,8 @@ const hasFocus = () =>
 function openUserModal () {
   formOverlay.classList.remove('hidden');
   body.classList.add('modal-open');
+  resetScale();
+  resetEffects();
 
   document.addEventListener('keydown', (evt) => {
     if (isEscapeKey(evt) && !hasFocus()) {
@@ -105,4 +110,4 @@ form.addEventListener('submit', (evt) => {
   }
 });
 
-export {manageUploads};
+export {manageUploads, sectionPictures};
